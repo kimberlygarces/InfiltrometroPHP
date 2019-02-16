@@ -13,97 +13,87 @@
   }
 ?>
 
+<?php
+  require 'dataBase.php';
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Datos</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-</head>
-<body>
+  $message = '';
 
+  if (!empty($_POST['metodo']) && !empty($_POST['localizacion']) && !empty($_POST['suelo']) && !empty($_POST['obs'])) {
+    $sql = "INSERT INTO registro (metodo, localizacion, suelo, obs) VALUES (:metodo, :localizacion, :suelo, :obs)";
 
-<nav class="navbar navbar-expand-md bg-dark navbar-dark">
-  <a class="navbar-brand" href="login.php">
-    <img align="right" src="img/usuario.png" width="60" height="60"/></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="RegistroUser.php">Registro</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#"></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#"></a>
-      </li>    
-    </ul>
-  </div>  
-</nav>
-
-<div class="container">
-  
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':metodo', $_POST['metodo']);
+     $stmt->bindParam(':localizacion', $_POST['localizacion']);
+       $stmt->bindParam(':suelo', $_POST['suelo']);
+         $stmt->bindParam(':obs', $_POST['obs']);
 
 
+    if ($stmt->execute()) {
+      $message = 'Proceso registrado';
+    } else {
+      $message = 'Error al momento  de registrar';
+    }
+  }
+?>
 
-  
-    <?php if(!empty($user)): ?>
-      <br> Usuario <?= $user['email']; ?>
-      <br>
-      <a href="logout.php">
-        salir
-      </a>
-    <?php else: ?>
-      <h1>Please Login or SignUp</h1>
+<?php require 'navar.php' ?>
 
-      <a href="login.php">Login</a> or
-      <a href="signup.php">SignUp</a>
+
+    <?php if(!empty($message)): ?>
+      <p> <?= $message ?></p>
     <?php endif; ?>
 
-  <h3>Tabla de datos</h3>
-
-  
-<div class="spinner-border spinner-border-sm"></div>
-<div class="spinner-grow spinner-grow-sm"></div>
-
-          
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Firstname</th>
-        <th>Lastname</th>
-        <th>Email</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
-      </tr>
-      <tr>
-        <td>Mary</td>
-        <td>Moe</td>
-        <td>mary@example.com</td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<div class="container">
+  <br>
+  <H1 align="center"> Prueba de infiltración </H1>
 
 
+  <form class="form-signin" action="tabla.php" method="POST">
 
-</body>
-</html>
+    <div class="form-group row">
+     <?php if(!empty($user)): ?>
+      <br>  <img align="all" src="img/usuario.png" width="60" height="60"/> <h6> <?= $user['email']; ?></h6>
+
+    </div>
+
+    <div class="form-group row">
+      <div class="col-sm-6">
+        <input type="text" class="form-control" name="metodo" placeholder="Metodo">
+      </div>
+
+      <div class="col-sm-6">
+        <input type="text" class="form-control" name="localizacion" placeholder="Localización">
+          </div>
+        </div>
+
+        <div class=class="col-sm-12">
+          <label for="ControlTipoSuelo">Tipo de suelo</label>
+          <select class="form-control" name="suelo">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Observaciones</label>
+          <textarea class="form-control" name="obs" rows="3"></textarea>
+        </div>
+
+        <input type="submit" class="btn btn-lg btn-primary btn-block" value="Registrar proceso">
+      </form>
+
+
+      </div>
+    <?php else: ?>
+      <h6>Usuario no registrado</h6>
+
+      <a href="login.php">Salir</a> 
+    <?php endif; ?>
+
+
+
+
+ <?php require 'footer.php' ?>
