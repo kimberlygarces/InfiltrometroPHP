@@ -15,6 +15,7 @@
 
     if (count($results) > 0 && password_verify($_POST['password'], $results['password'])) {
       $_SESSION['user_id'] = $results['id'];
+      
      header("Location: http://localhost/proyectos/php/infiltrometro/tabla.php"); 
     } else {
       $message = 'No registrado';
@@ -23,6 +24,7 @@
 ?>
 
 <?php require 'nav.php' ?>
+
 
 
     <?php if(!empty($message)): ?>
@@ -42,5 +44,8 @@
         <button type="button" class="form-control" class="btn btn-light btn-block" onclick="location='RegistroUser.php'">Nuevo usuario</button>
 
     </form>
+
+    <a class="navbar-brand" href="index.php">
+    <img align="right" src="img/tiempo.png" width="60" height="60"/></a>
  
   <?php require 'footer.php' ?>

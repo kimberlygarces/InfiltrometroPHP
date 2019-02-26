@@ -6,7 +6,7 @@
 
 <div class="spinner-border spinner-border-sm"></div>
 <div class="spinner-grow spinner-grow-sm"></div>
-<h2>Datos tamados por el dispocitivo</h2>
+<h2>Datos Registrados</h2>
 
 <table class="table table-hover">
   <thead>

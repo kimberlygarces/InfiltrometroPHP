@@ -45,14 +45,14 @@
 
 <div class="container">
   <br>
-  <H1 align="center"> Prueba de infiltración </H1>
+  <H1 align="center"> PRUEBA DE INFILTRACIÓN</H1>
 
 
   <form class="form-signin" action="tabla.php" method="POST">
 
     <div class="form-group row">
      <?php if(!empty($user)): ?>
-      <br>  <img align="all" src="img/usuario.png" width="60" height="60"/> <h6> <?= $user['email']; ?></h6>
+      <br> <h6> <img align="all" src="img/usuario.png" width="60" height="60"/>  <?= $user['email']; ?></h6>
 
     </div>
 
@@ -95,5 +95,3 @@
 
 
 
-
- <?php require 'footer.php' ?>
